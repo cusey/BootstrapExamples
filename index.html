@@ -148,9 +148,6 @@ Date: 09/30/2017
       });
 
       //SPELLING TEST
-
-
-
       $("#homeBtn").on('click', function(e) {
         $(".goosander-list").show();
         $(".goosander-test").hide();
@@ -164,6 +161,18 @@ Date: 09/30/2017
         var count = 0;
         var totalWordCount = 0;
 
+      });
+
+      $("#previousBtn").click(function(){
+        $("#incorrect").hide();
+        $("#correct").hide();
+        displayhint = true;
+
+         if(count == 0){
+           count = listArray.length;
+         }else{
+           count = count -1;
+         }
       });
 
       $("#sayBtn").on('click', function(e) {
@@ -188,6 +197,19 @@ Date: 09/30/2017
           $("#incorrect").show();
           $("#correct").hide();
           $("#answer").hide();
+        }
+
+      });
+
+      $("#nextBtn").click(function(){
+        $("#incorrect").hide();
+        $("#correct").hide();
+        displayhint = true;
+        
+        if(count == listArray.length-1){
+          count = 0;
+        }else{
+          count = count +1;
         }
 
       });
