@@ -73,6 +73,8 @@ Date: 09/30/2017
         <button id="startTestBtn" class="btn btn-primary goosander-list" type="button">Start Test</button>
 
         <!--SPELLING TEST -->
+        <button id="homeBtn" class="btn btn-info goosander-test" type="button">Home</button>
+
         <button id="previousBtn" class="btn btn-primary goosander-test" type="button">Previous</button>
         <button id="sayBtn" class="btn btn-primary goosander-test" type="button">Say</button>
         <button id="checkBtn" class="btn btn-primary goosander-test" type="button">Check</button>
@@ -110,8 +112,6 @@ Date: 09/30/2017
       var count = 0;
       var totalWordCount = 0;
 
-      var googleWordsPath = 'https://ssl.gstatic.com/dictionary/static/sounds/de/0/';
-
       $(".goosander-test").hide();
       $("#correct").hide();
       $("#incorrect").hide();
@@ -123,24 +123,39 @@ Date: 09/30/2017
         $(".goosander-list").hide();
         $(".goosander-test").show();
 
-        //Changing the size text area box so it can be used by the user to type words in.
+        //Changing the size text area box so it can be used by the user to type WORDs in.
         $('#inputWordsTxt').attr('cols', '44');
         $('#inputWordsTxt').attr('rows', '2');
-
-
 
         var list = $('#inputWordsTxt').val();
         listArray = list.split("\n");
 
         totalWordCount = listArray.length;
+        $('#inputWordsTxt').val('');
       });
 
       //SPELLING TEST
 
+      $("#homeBtn").on('click', function(e) {
+        $(".goosander-list").show();
+        $(".goosander-test").hide();
+
+        //Changing the size text area box so it can be used by the user to type WORD LIST in.
+        $('#inputWordsTxt').attr('cols', '10');
+        $('#inputWordsTxt').attr('rows', '15');
+
+        $('#inputWordsTxt').val('');
+        
+      });
+
       $("#sayBtn").on('click', function(e) {
         var word = listArray[count].toLowerCase().replace(' ', '');
 
-        $('#google-say').play();
+        if('speechSynthesis' in window){
+          var speech = new SpeechSynthesisUtterance(word);
+          speech.lang = 'en-US';
+          window.speechSynthesis.speak(speech);
+       }
 
 
       });
