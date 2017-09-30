@@ -33,6 +33,22 @@ Date: 09/30/2017
       border-radius: 5px;
       border-width: 8px;
     }
+
+    #correct{
+      margin-top:20px;
+    }
+
+    #incorrect{
+      margin-top:20px;
+    }
+
+    #hintBtn{
+      margin-left: 20px;
+    }
+
+    #answer{
+      padding-left: 150px;
+    }
   </style>
 
 
@@ -80,8 +96,6 @@ Date: 09/30/2017
         <button id="checkBtn" class="btn btn-primary goosander-test" type="button">Check</button>
         <button id="nextBtn" class="btn btn-primary goosander-test" type="button">Next</button>
 
-        <audio id="google-say" src="http://translate.google.com/translatte_tts?tl=en&hello"></audio>
-
         </audio>
 
         <div id="correct" class="alert alert-success">
@@ -89,11 +103,8 @@ Date: 09/30/2017
         </div>
 
         <div id="incorrect" class="alert alert-danger">
-          <strong>Incorrect</strong> The spelling is <span id="incorrect"> </span>
-        </div>
-
-        <div id="dialog" title="Google Say Word">
-          <iframe id="ifame" src=""></iframe>
+          <strong>Incorrect</strong> <button id="hintBtn" class="btn btn-primary btn-sm" type="button">Hint</button>
+          <div id="answer">The correct spelling is <span id="correct_spell"> </span>. </div>
         </div>
 
       </div>
@@ -108,9 +119,11 @@ Date: 09/30/2017
   <script language="javascript">
     $(document).ready(function() {
 
-      var listArray;
+      var listArray = null;
       var count = 0;
       var totalWordCount = 0;
+
+      var displayhint = true;
 
       $(".goosander-test").hide();
       $("#correct").hide();
@@ -136,6 +149,8 @@ Date: 09/30/2017
 
       //SPELLING TEST
 
+
+
       $("#homeBtn").on('click', function(e) {
         $(".goosander-list").show();
         $(".goosander-test").hide();
@@ -145,7 +160,10 @@ Date: 09/30/2017
         $('#inputWordsTxt').attr('rows', '15');
 
         $('#inputWordsTxt').val('');
-        
+        var listArray = null;
+        var count = 0;
+        var totalWordCount = 0;
+
       });
 
       $("#sayBtn").on('click', function(e) {
@@ -156,8 +174,34 @@ Date: 09/30/2017
           speech.lang = 'en-US';
           window.speechSynthesis.speak(speech);
        }
+      });
 
+      $("#checkBtn").on('click', function(e) {
+        var userInput = $('#inputWordsTxt').val();
+        var word = listArray[count].toLowerCase().replace(' ', '');
 
+        if(userInput == word){
+          $("#incorrect").hide();
+          $("#correct").show();
+          $("#correct_spell").val('');
+        }else{
+          $("#incorrect").show();
+          $("#correct").hide();
+          $("#answer").hide();
+        }
+
+      });
+
+      $("#hintBtn").on('click', function(e) {
+          if(displayhint === true){
+           $("#answer").show();
+              var word = listArray[count].toLowerCase().replace(' ', '');
+              $("#correct_spell").text(word);
+              displayhint = false;
+          }else{
+            $("#answer").hide();
+            displayhint = true;
+         }
       });
 
 
