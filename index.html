@@ -29,9 +29,27 @@ Date: 09/30/2017
     }
 
     .goosander-textbox-border {
-      border-color: purple;
+      border-color: #cc0099;
       border-radius: 5px;
       border-width: 8px;
+    }
+
+    .goosander-instructions-secondary{
+      color:#cc0099;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .goosander-instructions-primary{
+      color:blue;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .goosander-instructions-info{
+      color:#17a2b8;
+      font-weight: bold;
+      font-style: italic;
     }
 
     #correct{
@@ -49,6 +67,7 @@ Date: 09/30/2017
     #answer{
       padding-left: 150px;
     }
+
   </style>
 
 
@@ -65,12 +84,21 @@ Date: 09/30/2017
         <p id="goosander-instructions" class="goosander-text-color"><b>INSTRUCTIONS:</b></p>
         <!-- SPELLING LIST  -->
         <div class="goosander-list">
-          <p class="goosander-text-color">Please enter in the spelling list that you want to be tested on in the <span style="color:purple;"><b><i>purple</i></b></span> spelling list box.</p>
-          <p class="goosander-text-color">Then to begin the test please click the start <span style="color:blue;"><b><i>blue</i></b></span> test button.</p>
+          <p class="goosander-text-color">Please enter in the spelling list that you want to be tested on in the <span class="goosander-instructions-secondary" >Spelling List Box</span> </p>
+          <p class="goosander-text-color">Then to begin the test please click the <span class="goosander-instructions-primary">Start Test Button</span>.</p>
         </div>
         <!-- SPELLING TEST -->
         <div class="goosander-test">
             <p class="goosander-text-color"></p>
+            <p class="goosander-text-color">Please enter in how you think the word is spelled in the <span class="goosander-instructions-secondary" >Spelling Test Box</span>. </p>
+            <br>
+            <ul >
+              <li><span class="goosander-instructions-info" >Home Button</span> - This button return you back the the Spelling List Screen. </li>
+              <li><span class="goosander-instructions-primary" >Previous Button</span> - This button will go to the last word spelled. If you are at the begin of the list you will go the the last word in the list.</li>
+              <li><span class="goosander-instructions-primary" >Say Button</span> - This button ask the student the words on they spelling list.</li>
+              <li><span class="goosander-instructions-primary" >Check Button</span> - This button check the thw word the student enter in the <span class="goosander-instructions-secondary" >Spelling Test Box</span></li>
+              <li><span class="goosander-instructions-primary" >Next Button</span> - This button will go to the next word in the spelling list. If you are at the last of the list you will go the the first word in the list. This is good if the student wants to retake the spelling test.</li>
+          </ul>
         </div>
 
       </div>
