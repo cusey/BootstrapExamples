@@ -64,10 +64,15 @@ Date: 09/30/2017
         <h1 class="display-1 text-center my-5 goosander-text-color"><i>Goosander</i></h1>
         <p id="goosander-instructions" class="goosander-text-color"><b>INSTRUCTIONS:</b></p>
         <!-- SPELLING LIST  -->
-        <p class="goosander-text-color">Please enter in the spelling list that you want to be tested on in the <span style="color:purple;"><b><i>purple</i></b></span> spelling list box.</p>
-        <p class="goosander-text-color">Then to begin the test please click the start <span style="color:blue;"><b><i>blue</i></b></span> test button.</p>
+        <div class="goosander-list">
+          <p class="goosander-text-color">Please enter in the spelling list that you want to be tested on in the <span style="color:purple;"><b><i>purple</i></b></span> spelling list box.</p>
+          <p class="goosander-text-color">Then to begin the test please click the start <span style="color:blue;"><b><i>blue</i></b></span> test button.</p>
+        </div>
         <!-- SPELLING TEST -->
-        <p class="g"></p>
+        <div class="goosander-test">
+            <p class="goosander-text-color"></p>
+        </div>
+
       </div>
 
 
@@ -78,8 +83,12 @@ Date: 09/30/2017
         <!--SPELLING TEST -->
         <h1 class="my-3 goosander-text-color goosander-test">Spelling Test</h1>
         <div class="progress goosander-test" style="width:346px">
-          <div class="progress-bar bg-success" style="width:0%"></div>
+          <div id="goosander-progress" class="progress-bar bg-success" style="width:0%"></div>
         </div>
+        <div class="goosander-test">
+          <small id="diplayWordTotal"  class="text-muted"></small>
+        </div>
+
 
         <!-- SPELLING LIST AND TEST-->
         <textarea class="my-4 goosander-textbox-border" id="inputWordsTxt" cols="10" rows="15"></textarea>
@@ -125,6 +134,15 @@ Date: 09/30/2017
 
       var displayhint = true;
 
+      var changeProgressStatus = function(progressCount, progressTotalWordCount){
+        var progress = progressCount/ progressTotalWordCount;
+        var progressBarLength = 346 * (progress);
+        $('#goosander-progress').css('width', progressBarLength +'px');
+        $('#goosander-progress').html(Math.ceil(progress*100) + '%');
+
+        $('#diplayWordTotal').text("( " + progressCount +" / " + totalWordCount + " )");
+      };
+
       $(".goosander-test").hide();
       $("#correct").hide();
       $("#incorrect").hide();
@@ -145,6 +163,7 @@ Date: 09/30/2017
 
         totalWordCount = listArray.length;
         $('#inputWordsTxt').val('');
+
       });
 
       //SPELLING TEST
@@ -169,7 +188,7 @@ Date: 09/30/2017
         displayhint = true;
 
          if(count == 0){
-           count = listArray.length;
+           count = listArray.length -1;
          }else{
            count = count -1;
          }
@@ -177,6 +196,8 @@ Date: 09/30/2017
 
       $("#sayBtn").on('click', function(e) {
         var word = listArray[count].toLowerCase().replace(' ', '');
+
+        changeProgressStatus(count+1, totalWordCount);
 
         if('speechSynthesis' in window){
           var speech = new SpeechSynthesisUtterance(word);
@@ -205,12 +226,13 @@ Date: 09/30/2017
         $("#incorrect").hide();
         $("#correct").hide();
         displayhint = true;
-        
+
         if(count == listArray.length-1){
           count = 0;
         }else{
           count = count +1;
         }
+
 
       });
 
